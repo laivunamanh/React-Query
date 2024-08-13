@@ -1,0 +1,95 @@
+{
+  "products": [
+    {
+      "id": "8",
+      "name": "Product 8",
+      "price": 17.99,
+      "image": "https://picsum.photos/id/17/300/300",
+      "description": "This is product 8",
+      "discount": 0.1,
+      "quantity": 80,
+      "featured": true,
+      "categoryId": 1
+    },
+    {
+      "id": "9",
+      "name": "Product 9",
+      "price": 6.99,
+      "image": "https://picsum.photos/id/18/300/300",
+      "description": "This is product 9",
+      "discount": 0,
+      "quantity": 120,
+      "featured": false,
+      "categoryId": 1
+    },
+    {
+      "id": "10",
+      "name": "Product 10",
+      "price": 11.99,
+      "image": "https://picsum.photos/id/19/300/300",
+      "description": "This is product 10",
+      "discount": 0.25,
+      "quantity": 90,
+      "featured": true,
+      "categoryId": 2
+    },
+    {
+      "name": "Sản phẩm 11",
+      "price": "1100",
+      "categoryId": 2,
+      "description": "Mô tả sản phẩm 11",
+      "discount": "50",
+      "countInStock": "1000",
+      "featured": false,
+      "id": "11"
+    },
+    {
+      "name": "Sản phẩm 12",
+      "price": "1200",
+      "categoryId": 2,
+      "description": "Mô tả sản phẩm 12",
+      "discount": "40",
+      "countInStock": "10",
+      "featured": true,
+      "id": "12"
+    },
+    {
+      "id": "5a94",
+      "name": "ada",
+      "price": "321312",
+      "image": "adda",
+      "description": "adad"
+    },
+    {
+      "id": "d289",
+      "name": "ADAD",
+      "price": "231",
+      "image": "ADAD",
+      "description": "ADAD"
+    }
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "name": "Danh mục 1"
+    },
+    {
+      "id": "2",
+      "name": "Danh mục 2"
+    }
+  ],
+  "users": [
+    {
+      "email": "nam@gmail.com",
+      "password": "$2a$10$RFNWTzsxLKouLhXK3B621uZZTT6WFTQq8E5tlJv/h2ZTQF4JyQ2Jy",
+      "name": "anhnam",
+      "id": 1
+    },
+    {
+      "email": "namanh@gmail.com",
+      "password": "$2a$10$08vnvfbYvkBVP5vM/b4e6utrbdQxKNy3LyREo31sXcex4dWvsWOI.",
+      "name": "nam",
+      "id": 3
+    }
+  ]
+}
