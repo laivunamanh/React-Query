@@ -1,17 +1,6 @@
 {
   "products": [
     {
-      "id": "8",
-      "name": "Product 8",
-      "price": 17.99,
-      "image": "https://picsum.photos/id/17/300/300",
-      "description": "This is product 8",
-      "discount": 0.1,
-      "quantity": 80,
-      "featured": true,
-      "categoryId": 1
-    },
-    {
       "id": "9",
       "name": "Product 9",
       "price": 6.99,
@@ -66,6 +55,13 @@
       "price": "231",
       "image": "ADAD",
       "description": "ADAD"
+    },
+    {
+      "name": "sdfds",
+      "price": "asdfsafd",
+      "image": "fasfds",
+      "description": "fasdadfs",
+      "id": "YW7nlrQ"
     }
   ],
   "categories": [

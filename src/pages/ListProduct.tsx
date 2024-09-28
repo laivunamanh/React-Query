@@ -73,16 +73,22 @@ const ListProduct = () => {
        key: "chuc nang",
        render:(_:any,products:any)=>{
         return (
-          <Popconfirm
-            title="Delete the task"
-            description="Are you sure to delete this task?"
-            onConfirm={()=>mutate(products.id)}
-            // onCancel={cancel}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Button danger>Delete</Button>
-          </Popconfirm>
+          <div>
+            <Popconfirm
+              title="Delete the task"
+              description="Are you sure to delete this task?"
+              onConfirm={() => mutate(products.id)}
+              // onCancel={cancel}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button danger>Delete</Button>
+              <Link to={`/products/${products.id}/edit`}>
+              <Button>Cập nhật</Button>
+            </Link>
+            </Popconfirm>
+            
+          </div>
         );
        }
     }
@@ -91,6 +97,12 @@ const ListProduct = () => {
     <div>
       {contextHolder}
       <div>
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl">Quản lý sản phẩm</h1>
+          <Link to={`/admin/products/add`} className="mb-4 block">
+            <Button type="primary">Add</Button>
+          </Link>
+        </div>
         <Table dataSource={dataSource} columns={columns} />;
       </div>
     </div>

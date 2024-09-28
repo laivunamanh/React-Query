@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Form, FormProps, Input, message } from 'antd';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import instance from '@/configs/axios';
 import { Link } from 'react-router-dom';
 type FieldType = {
@@ -11,9 +11,9 @@ type FieldType = {
 };
 const AddProduct = () => {
    const [messageApi, contextHolder] = message.useMessage();
-   const queryclient = useQueryClient();
+  //  const queryclient = useQueryClient();
    const [form]= Form.useForm()
-   const { mutate, isPending } = useMutation({
+   const { mutate } = useMutation({
      mutationFn: async (product: FieldType) => {
        try {
          return await instance.post(`/products`, product);
