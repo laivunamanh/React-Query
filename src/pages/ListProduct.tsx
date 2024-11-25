@@ -1,54 +1,57 @@
-import instance from '@/configs/axios';
-import { TProduct } from '@/interface/product';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { Button, message, Popconfirm, Skeleton, Table } from 'antd';
-import React from 'react'
+import instance from "@/configs/axios";
+import { TProduct } from "@/interface/product";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { Button, message, Popconfirm, Table } from "antd";
+import React from "react";
+import { Link } from "react-router-dom";
 
-import { Link } from 'react-router-dom';
-type props ={}
 const ListProduct = () => {
-  const [messageApi, contextHolder]=message.useMessage();
-  const queryclient=useQueryClient();
-  const {data, isLoading,isError,error}=useQuery({
-    queryKey:["products"],
-    queryFn:async()=>{
+  const [messageApi, contextHolder] = message.useMessage();
+  const queryClient = useQueryClient();
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["products"],
+    queryFn: async () => {
       try {
-        return await instance.get(`/products`)
+        return await instance.get("/products");
       } catch (error) {
-        throw Error ("loi"+error)
-      }
-    }
-  });
-  const {mutate}=useMutation({
-    mutationFn:async(id:number)=>{
-      try {
-        return await instance.delete(`/products/${id}`)
-      } catch (error) {
-        throw Error ("loi")
+        throw new Error("Error fetching products");
       }
     },
-    onSuccess:()=>{
-      queryclient.invalidateQueries({
-        queryKey:["products"]
+  });
+
+  const { mutate } = useMutation({
+    mutationFn: async (id: number) => {
+      try {
+        return await instance.delete(`/products/${id}`);
+      } catch (error) {
+        throw new Error("Error deleting product");
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["products"],
       });
       messageApi.open({
-        type:'success',
-        content:"xoa thanh cong"
-      })
+        type: "success",
+        content: "Product deleted successfully",
+      });
     },
-    onError:(error)=>{
+    onError: (error: any) => {
       messageApi.open({
-        type:"success",
-        content: error.message
-      })
-    }
-  })
-  if(isError)return <div>{error.message}</div>
-  if(isLoading)return <div>...loading</div>
-  const dataSource= data?.data.map((products:TProduct)=>({
-    key:products.id,
-    ...products,
-  }))
+        type: "error",
+        content: error.message,
+      });
+    },
+  });
+
+  if (isError) return <div>Error: {error.message}</div>;
+  if (isLoading) return <div>Loading...</div>;
+
+  const dataSource = data?.data.map((product: TProduct) => ({
+    key: product.id,
+    ...product,
+  }));
+
   const columns = [
     {
       title: "Name",
@@ -56,57 +59,63 @@ const ListProduct = () => {
       key: "name",
     },
     {
-      title: "price",
+      title: "Price",
       dataIndex: "price",
       key: "price",
     },
     {
-      title: "image",
-      
+      title: "Image",
       key: "image",
-      render: (_:any,products:any) =>{
-        return <img src={products.image} alt="" />
-      }
+      render: (_: any, product: TProduct) => {
+        return (
+          <img
+            src={product.image}
+            alt={product.name}
+            style={{ width: "50px", height: "50px", objectFit: "cover" }}
+          />
+        );
+      },
     },
     {
-      title: "chuc nang",
-       key: "chuc nang",
-       render:(_:any,products:any)=>{
+      title: "Actions",
+      key: "actions",
+      render: (_: any, product: TProduct) => {
         return (
           <div>
             <Popconfirm
-              title="Delete the task"
-              description="Are you sure to delete this task?"
-              onConfirm={() => mutate(products.id)}
-              // onCancel={cancel}
+              title="Are you sure to delete this product?"
+              onConfirm={() => mutate(product.id)}
               okText="Yes"
               cancelText="No"
             >
-              <Button danger>Delete</Button>
-              <Link to={`/products/${products.id}/edit`}>
-              <Button>Cập nhật</Button>
-            </Link>
+              <Button danger style={{ marginRight: "8px" }}>
+                Delete
+              </Button>
             </Popconfirm>
-            
+
+            <Link to={`/admin/products/${product.id}/edit`}>
+              <Button type="primary">Edit</Button>
+            </Link>
           </div>
         );
-       }
-    }
+      },
+    },
   ];
+
   return (
     <div>
       {contextHolder}
       <div>
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl">Quản lý sản phẩm</h1>
-          <Link to={`/admin/products/add`} className="mb-4 block">
-            <Button type="primary">Add</Button>
+          <h1 className="text-2xl">Product Management</h1>
+          <Link to="/admin/products/add" className="mb-4 block">
+            <Button type="primary">Add Product</Button>
           </Link>
         </div>
-        <Table dataSource={dataSource} columns={columns} />;
+        <Table dataSource={dataSource} columns={columns} />
       </div>
     </div>
   );
 };
 
-export default ListProduct
+export default ListProduct;

@@ -3,21 +3,24 @@ import { Button, Form, FormProps, Input, message } from "antd";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import instance from "@/configs/axios";
 import { Link } from "react-router-dom";
+
 type FieldType = {
-  name: string;
   email: string;
   password: string;
 };
+
 const Dangnhap = () => {
   const [messageApi, contextHolder] = message.useMessage();
-  const queryclient = useQueryClient();
+  const queryClient = useQueryClient();
   const [form] = Form.useForm();
+
   const { mutate } = useMutation({
     mutationFn: async (users: FieldType) => {
       try {
-        return await instance.post(`/login`, users);
-      } catch (error) {
-        throw new Error(`dn that bai`);
+        const response = await instance.post(`/login`, users);
+        return response.data;
+      } catch (error: any) {
+        throw new Error(error.response?.data?.message || "Login failed");
       }
     },
     onSuccess: () => {
@@ -26,47 +29,44 @@ const Dangnhap = () => {
         content: "Đăng nhập thành công",
       });
       form.resetFields();
+      // Optionally refresh query data
+      queryClient.invalidateQueries(["user"]);
     },
-    onError: (error) => {
+    onError: (error: any) => {
       messageApi.open({
-        type: "error", // Corrected to "error"
+        type: "error",
         content: error.message,
       });
     },
   });
+
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
     console.log("Success:", values);
     mutate(values);
   };
+
   return (
     <div>
       <Button danger>
-        <Link to={`/admin/products`}>quay ve</Link>
+        <Link to={`/admin/products`}>Back to Products</Link>
       </Button>
       <div>
         {contextHolder}
-
         <Form
-          name="basic"
+          name="loginForm"
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
-          style={{ maxWidth: 600 }}
-          initialValues={{ remember: true }}
+          style={{ maxWidth: 600, margin: "0 auto" }}
           onFinish={onFinish}
-          // onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
-          {/* <Form.Item<FieldType>
-            label="name"
-            name="name"
-            rules={[{ required: true, message: "Please input your username!" }]}
-          >
-            <Input />
-          </Form.Item> */}
           <Form.Item<FieldType>
-            label="email"
+            label="Email"
             name="email"
-            rules={[{ required: true, message: "Please input your email!" }]}
+            rules={[
+              { required: true, message: "Please input your email!" },
+              { type: "email", message: "Please enter a valid email!" },
+            ]}
           >
             <Input />
           </Form.Item>
@@ -81,7 +81,7 @@ const Dangnhap = () => {
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
             <Button type="primary" htmlType="submit">
-              Submit
+              Login
             </Button>
           </Form.Item>
         </Form>
