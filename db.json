@@ -65,25 +65,11 @@
   ],
   "cart": [
     {
-      "id": "Egh_Nf4",
-      "name": "ads",
-      "price": "3113",
-      "quantity": 3,
-      "total": "3113"
-    },
-    {
       "id": 1,
       "name": "Sản phẩm A",
       "price": 100000,
-      "quantity": 1,
+      "quantity": 20,
       "total": 100000
-    },
-    {
-      "id": "10",
-      "name": "Product 10",
-      "price": 11.99,
-      "quantity": 1,
-      "total": 11.99
     }
   ]
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Table,
@@ -6,6 +6,7 @@ import {
   Card,
   Form,
   Input,
+  Select,
   Space,
   Typography,
   message,
@@ -22,11 +23,14 @@ type CartItem = {
   quantity: number;
 };
 
+const provincesFreeShip = ["Hà Nội", "Hồ Chí Minh"]; // Các tỉnh miễn phí ship
+
 const Bill: React.FC = () => {
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const [selectedProvince, setSelectedProvince] = useState<string | null>(null);
 
   // Lấy danh sách sản phẩm từ giỏ hàng
   const { data: cartData, isLoading } = useQuery({
@@ -37,11 +41,17 @@ const Bill: React.FC = () => {
     },
   });
 
-  // Tính tổng tiền
+  // Tính tổng tiền sản phẩm
   const calculateTotal = () => {
     if (!Array.isArray(cartData)) return 0;
     return cartData.reduce((acc, item) => acc + item.price * item.quantity, 0);
   };
+
+  // Tính phí ship
+  const shippingFee =
+    selectedProvince && !provincesFreeShip.includes(selectedProvince)
+      ? 50000
+      : 0;
 
   // Xử lý đặt hàng
   const { mutate: placeOrder, isLoading: isPlacingOrder } = useMutation({
@@ -50,11 +60,13 @@ const Bill: React.FC = () => {
       phone: string;
       email: string;
       address: string;
+      province: string;
     }) => {
       const orderData = {
         ...values,
         items: cartData,
-        total: calculateTotal(),
+        total: calculateTotal() + shippingFee,
+        shippingFee,
       };
       await instance.post("/orders", orderData);
       await instance.delete("/cart"); // Xóa giỏ hàng sau khi đặt hàng
@@ -105,7 +117,7 @@ const Bill: React.FC = () => {
             >
               Tổng tiền:{" "}
               <span style={{ color: "#27ae60" }}>
-                {calculateTotal().toLocaleString()} VND
+                {(calculateTotal() + shippingFee).toLocaleString()} VND
               </span>
             </Typography.Title>
           </>
@@ -144,6 +156,25 @@ const Bill: React.FC = () => {
             <Input placeholder="Nhập email" />
           </Form.Item>
           <Form.Item
+            name="province"
+            label="Tỉnh/Thành phố"
+            rules={[
+              { required: true, message: "Vui lòng chọn tỉnh/thành phố" },
+            ]}
+          >
+            <Select
+              placeholder="Chọn tỉnh/thành phố"
+              onChange={(value) => setSelectedProvince(value)}
+            >
+              <Select.Option value="Hà Nội">Hà Nội</Select.Option>
+              <Select.Option value="Hồ Chí Minh">Hồ Chí Minh</Select.Option>
+              <Select.Option value="Đà Nẵng">Đà Nẵng</Select.Option>
+              <Select.Option value="Hải Phòng">Hải Phòng</Select.Option>
+              <Select.Option value="Cần Thơ">Cần Thơ</Select.Option>
+              <Select.Option value="Khác">Khác</Select.Option>
+            </Select>
+          </Form.Item>
+          <Form.Item
             name="address"
             label="Địa chỉ giao hàng"
             rules={[{ required: true, message: "Vui lòng nhập địa chỉ" }]}
@@ -172,3 +203,4 @@ const Bill: React.FC = () => {
 };
 
 export default Bill;
+    
