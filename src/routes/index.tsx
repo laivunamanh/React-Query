@@ -1,3 +1,4 @@
+import Bill from "@/home/Bill";
 import Cart from "@/home/cart";
 import Home from "@/home/home";
 import LayoutHome from "@/home/layout";
@@ -20,12 +21,16 @@ const Router = () => {
           <Route path="products/:id/edit" index element={<EditProduct />} />
           <Route path="dangky" index element={<Dangky />} />
           <Route path="login" index element={<Dangnhap />} />
+          
         </Route>
         <Route path="/" element={<LayoutHome />}>
           <Route path="home" index element={<Home />} />
           <Route path="products" index element={<ProductsHome />} />
           <Route path="products/:id" index element={<ProductDetails />} />
           <Route path="cart" index element={<Cart />} />
+          <Route path="login" index element={<Dangnhap />} />
+          <Route path="dangky" index element={<Dangky />} />
+          <Route path="bill" index element={<Bill/>}/>
         </Route>
       </Routes>
     );

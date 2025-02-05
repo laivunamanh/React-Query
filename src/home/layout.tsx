@@ -1,16 +1,63 @@
 import React from "react";
-import { Breadcrumb, Layout, Menu, theme } from "antd";
+import { Breadcrumb, Col, Layout, Menu, Row, theme } from "antd";
 import { Outlet, Link } from "react-router-dom";
 
 const { Header, Content, Footer } = Layout;
+import "./Footer.scss";
+import { HomeOutlined, LoginOutlined, ProductOutlined, ShoppingCartOutlined, UserAddOutlined } from "@ant-design/icons";
+
+
 
 const menuItems = [
-  { key: "home", label: <Link to="/home">Home</Link> },
-  { key: "products", label: <Link to="/products">Sản phẩm</Link> },
-//   { key: "details", label: <Link to="/details">Chi tiết</Link> },
-  { key: "cart", label: <Link to="/cart">Giỏ hàng</Link> },
-  { key: "register", label: <Link to="/register">Đăng ký</Link> },
-  { key: "login", label: <Link to="/login">Đăng nhập</Link> },
+  {
+    key: "home",
+    label: (
+      <Link to="/home">
+        {" "}
+        <HomeOutlined />
+        Home
+      </Link>
+    ),
+  },
+  {
+    key: "products",
+    label: (
+      <Link to="/products">
+        <ProductOutlined />
+        Sản phẩm
+      </Link>
+    ),
+  },
+  //   { key: "details", label: <Link to="/details">Chi tiết</Link> },
+  {
+    key: "cart",
+    label: (
+      <Link to="/cart">
+        <ShoppingCartOutlined />
+        Giỏ hàng
+      </Link>
+    ),
+  },
+  {
+    key: "register",
+    label: (
+      <Link to="/dangky">
+        {" "}
+        <UserAddOutlined />
+        Đăng ký
+      </Link>
+    ),
+  },
+  {
+    key: "login",
+    label: (
+      <Link to="/login">
+        {" "}
+        <LoginOutlined />
+        Đăng nhập
+      </Link>
+    ),
+  },
 ];
 
 const LayoutHome: React.FC = () => {
@@ -47,11 +94,44 @@ const LayoutHome: React.FC = () => {
           <Outlet />
         </div>
       </Content>
-      <Footer style={{ textAlign: "center" }}>
-        Ant Design ©{new Date().getFullYear()} Created by Ant UED
+      <Footer className="custom-footer">
+        <Row justify="center">
+          <Col span={24} className="tagline">
+            Thương Hiệu Làm Lên Tên Tuổi
+          </Col>
+        </Row>
+        <Row gutter={[16, 8]} justify="center">
+          <Col span={10} className="title">
+            TẬP ĐOÀN QUỐC TẾ Á CHÂU
+          </Col>
+          <Col span={10} className="title">
+            Thông Tin Liên Hệ
+          </Col>
+        </Row>
+        <Row gutter={[16, 8]} justify="center">
+          <Col span={10}>
+            Trụ sở: Lô C7/II, Đường Số 2E, KCN Bình Chánh, Hồ Chí Minh
+          </Col>
+          <Col span={10}>
+            Số Điện Thoại: <a href="tel:1900636066">1900 63 60 66</a>
+          </Col>
+        </Row>
+        <Row gutter={[16, 8]} justify="center">
+          <Col span={10}>Lô E2-3, Đường số 10, KCN Hải Sơn, Long An</Col>
+          <Col span={10}>
+            Email:{" "}
+            <a href="mailto:info@royalhelmet.com.vn">info@royalhelmet.com.vn</a>
+          </Col>
+        </Row>
+        <Row justify="center">
+          <Col span={12} className="brand-title">
+            NHỮNG THƯƠNG HIỆU TRỰC THUỘC
+          </Col>
+        </Row>
       </Footer>
     </Layout>
   );
 };
+
 
 export default LayoutHome;

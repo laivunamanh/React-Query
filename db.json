@@ -19,31 +19,18 @@
       "id": "10"
     },
     {
-      "name": "Sản phẩm 11",
-      "price": "1100",
-      "categoryId": 2,
-      "description": "Mô tả sản phẩm 11",
-      "discount": "50",
-      "countInStock": "1000",
-      "featured": false,
-      "id": "11"
-    },
-    {
-      "name": "Sản phẩm 12",
-      "price": "1200",
-      "categoryId": 2,
-      "description": "Mô tả sản phẩm 12",
-      "discount": "40",
-      "countInStock": "10",
-      "featured": true,
-      "id": "12"
-    },
-    {
       "name": "mũ cao ",
       "price": "100000",
       "image": "data:image/jpeg;base64,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",
       "description": " thiết kế 3/4 đầu, được cấu tạo từ chất liệu cao cấp nên đảm bảo độ an toàn cao cho người sử dụng, kính chắc chắn và che bụi tốt.",
       "id": "TJhp2Ll"
+    },
+    {
+      "name": "ads",
+      "price": "3113",
+      "image": "https://img-cache.coccoc.com/image2?i=3&l=40/1109002887",
+      "description": "đâsaadqqw",
+      "id": "Egh_Nf4"
     }
   ],
   "categories": [
@@ -68,29 +55,28 @@
       "password": "$2a$10$08vnvfbYvkBVP5vM/b4e6utrbdQxKNy3LyREo31sXcex4dWvsWOI.",
       "name": "nam",
       "id": 3
+    },
+    {
+      "email": "lainam@gmail.com",
+      "password": "$2a$10$2oKIsQiqXvDXsSqnVaB5jukkU.ut/YV947eyxtfEUdJxejVZzZbvK",
+      "name": "nam anh",
+      "id": 4
     }
   ],
   "cart": [
     {
+      "id": "Egh_Nf4",
+      "name": "ads",
+      "price": "3113",
+      "quantity": 3,
+      "total": "3113"
+    },
+    {
       "id": 1,
-      "name": "Sản phẩm 1",
+      "name": "Sản phẩm A",
       "price": 100000,
-      "quantity": 2,
-      "total": 200000
-    },
-    {
-      "id": 2,
-      "name": "Sản phẩm 2",
-      "price": 150000,
       "quantity": 1,
-      "total": 150000
-    },
-    {
-      "id": "9",
-      "name": "Product 9",
-      "price": 6.99,
-      "quantity": 1,
-      "total": 6.99
+      "total": 100000
     },
     {
       "id": "10",
@@ -98,13 +84,6 @@
       "price": 11.99,
       "quantity": 1,
       "total": 11.99
-    },
-    {
-      "id": "d289",
-      "name": "ADAD",
-      "price": "231",
-      "quantity": 1,
-      "total": "231"
     }
   ]
 }

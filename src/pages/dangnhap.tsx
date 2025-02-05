@@ -41,7 +41,7 @@ const Dangky = () => {
   return (
     <div>
       <Button danger>
-        <Link to={`/admin/products`}>quay ve</Link>
+        <Link to={`/home`}>quay ve</Link>
       </Button>
       <div>
         {contextHolder}
@@ -74,9 +74,14 @@ const Dangky = () => {
           <Form.Item<FieldType>
             label="Password"
             name="password"
-            rules={[{ required: true, message: "Please input your password!" },{
-                type:"string", min:6, message:"phai hon 6 kytu"
-            }]}
+            rules={[
+              { required: true, message: "Please input your password!" },
+              {
+                type: "string",
+                min: 6,
+                message: "phai hon 6 kytu",
+              },
+            ]}
           >
             <Input.Password />
           </Form.Item>

@@ -69,12 +69,9 @@ const LayoutAdmin: React.FC = () => {
           <Outlet />
           <Button>
             {" "}
-            <Link to={`/admin/dangky`}>dangky</Link>
+            <Link to={`/home`}>Quay về</Link>
           </Button>
-          <Button>
-            {" "}
-            <Link to={`/admin/login `}>dangnhap</Link>
-          </Button>
+          
         </Content>
       </Layout>
     </Layout>

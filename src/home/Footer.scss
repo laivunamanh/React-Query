@@ -1,0 +1,31 @@
+.custom-footer {
+    background: #1f1f1f;
+    color: #fff;
+    padding: 40px 20px;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+    .tagline {
+        font-size: 18px;
+        font-weight: bold;
+        color: #fadb14;
+        margin-bottom: 10px;
+    }
+    .title {
+        font-size: 16px;
+        font-weight: bold;
+        color: #d9d9d9;
+        margin-top: 10px;
+    }
+    .brand-title {
+        font-size: 16px;
+        font-weight: bold;
+        color: #fadb14;
+        margin-top: 15px;
+    }
+    a {
+        color: #1890ff;
+        &:hover {
+            color: #40a9ff;
+        }
+    }
+}
