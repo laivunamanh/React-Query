@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  ProductOutlined,
   UploadOutlined,
   UserOutlined,
   VideoCameraOutlined,
@@ -28,18 +29,29 @@ const LayoutAdmin: React.FC = () => {
           items={[
             {
               key: "1",
-              icon: <UserOutlined />,
-              label: "nav 1",
+              icon: <ProductOutlined />,
+              label: <Link to="products">Quản Lý Sản Phẩm </Link>,
             },
             {
               key: "2",
-              icon: <VideoCameraOutlined />,
-              label: "nav 2",
+              icon: <UserOutlined />,
+
+              label: <Link to="users">Quản Lý Người Dùng</Link>,
             },
             {
               key: "3",
               icon: <UploadOutlined />,
-              label: "nav 3",
+              label: <Link to="danhmuc">Quản Lý Người Dùng</Link>,
+            },
+            {
+              key: "4",
+              icon: <UploadOutlined />,
+              label: <Link to="danhmuc">Quản Lý Người Dùng</Link>,
+            },
+            {
+              key: "5",
+              icon: <UploadOutlined />,
+              label: <Link to="danhmuc">Quản Lý Người Dùng</Link>,
             },
           ]}
         />
@@ -69,9 +81,8 @@ const LayoutAdmin: React.FC = () => {
           <Outlet />
           <Button>
             {" "}
-            <Link to={`/home`}>Quay về</Link>
+            <Link to={`/Admin`}>Quay về</Link>
           </Button>
-          
         </Content>
       </Layout>
     </Layout>

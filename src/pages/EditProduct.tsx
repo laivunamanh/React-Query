@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Form, Input, message } from "antd";
+import { Button, Form, Input, Select, message } from "antd";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import instance from "@/configs/axios";
 import { Link, useParams } from "react-router-dom";
@@ -9,6 +9,7 @@ type FieldType = {
   price: number;
   image: string;
   description: string;
+  categoryId: string;
 };
 
 const EditProduct = () => {
@@ -17,51 +18,48 @@ const EditProduct = () => {
   const [form] = Form.useForm();
   const { id } = useParams();
 
-  // Fetching product data by ID
-  const { data, isLoading, isError, error } = useQuery({
+  // Fetch product data
+  const {
+    data: productData,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
     queryKey: ["products", id],
     queryFn: async () => {
-      try {
-        return await instance.get(`/products/${id}`);
-      } catch (error) {
-        throw new Error("Error fetching product data");
-      }
+      return await instance.get(`/products/${id}`);
+    },
+  });
+
+  // Fetch categories data
+  const { data: categoriesData } = useQuery({
+    queryKey: ["categories"],
+    queryFn: async () => {
+      return await instance.get(`/categories`);
     },
   });
 
   // Mutation for updating the product
   const { mutate } = useMutation({
     mutationFn: async (product: FieldType) => {
-      try {
-        return await instance.put(`/products/${id}`, product);
-      } catch (error) {
-        throw new Error("Error updating product");
-      }
+      return await instance.put(`/products/${id}`, product);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["products"],
-      });
+      queryClient.invalidateQueries({ queryKey: ["products"] });
       messageApi.open({
         type: "success",
         content: "Product updated successfully",
       });
     },
     onError: (error: Error) => {
-      messageApi.open({
-        type: "error",
-        content: error.message,
-      });
+      messageApi.open({ type: "error", content: error.message });
     },
   });
 
-  // Handling form submission
   const onFinish = (values: FieldType) => {
-    console.log("Form values:", values);
     mutate(values);
   };
 
-  // Handling error and loading states
   if (isError) return <div>Error: {error?.message}</div>;
   if (isLoading) return <div>Loading...</div>;
 
@@ -78,7 +76,7 @@ const EditProduct = () => {
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
           style={{ maxWidth: 600 }}
-          initialValues={{ ...data?.data }}
+          initialValues={{ ...productData?.data }}
           onFinish={onFinish}
           autoComplete="off"
         >
@@ -89,7 +87,8 @@ const EditProduct = () => {
               { required: true, message: "Please input the product name!" },
             ]}
           >
-            <Input />
+            {" "}
+            <Input />{" "}
           </Form.Item>
 
           <Form.Item
@@ -97,10 +96,10 @@ const EditProduct = () => {
             name="price"
             rules={[
               { required: true, message: "Please input the product price!" },
-              { type: "number", message: "Price must be a number" },
             ]}
           >
-            <Input type="number" />
+            {" "}
+            <Input type="number" />{" "}
           </Form.Item>
 
           <Form.Item
@@ -110,7 +109,8 @@ const EditProduct = () => {
               { required: true, message: "Please input the product image!" },
             ]}
           >
-            <Input />
+            {" "}
+            <Input />{" "}
           </Form.Item>
 
           <Form.Item
@@ -123,12 +123,28 @@ const EditProduct = () => {
               },
             ]}
           >
-            <Input.TextArea rows={4} />
+            {" "}
+            <Input.TextArea rows={4} />{" "}
+          </Form.Item>
+
+          <Form.Item
+            label="Category"
+            name="categoryId"
+            rules={[{ required: true, message: "Please select a category!" }]}
+          >
+            <Select>
+              {categoriesData?.data.map((category: any) => (
+                <Select.Option key={category.id} value={category.id}>
+                  {category.name}
+                </Select.Option>
+              ))}
+            </Select>
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
             <Button type="primary" htmlType="submit">
-              Update Product
+              {" "}
+              Update Product{" "}
             </Button>
           </Form.Item>
         </Form>

@@ -1,15 +1,12 @@
 {
   "products": [
     {
-      "id": "9",
       "name": "Product 9",
       "price": 6.99,
       "image": "https://picsum.photos/id/18/300/300",
       "description": "This is product 9",
-      "discount": 0,
-      "quantity": 120,
-      "featured": false,
-      "categoryId": 1
+      "categoryId": "1",
+      "id": "9"
     },
     {
       "name": "Product 10",
@@ -31,16 +28,28 @@
       "image": "https://img-cache.coccoc.com/image2?i=3&l=40/1109002887",
       "description": "đâsaadqqw",
       "id": "Egh_Nf4"
+    },
+    {
+      "name": "mũ 2 quay",
+      "price": "120.000",
+      "image": "https://cf.shopee.vn/file/vn-11134207-7r98o-ltq4c3evhcst59",
+      "description": "an toàn",
+      "categoryId": "2",
+      "id": "R8GtzFv"
     }
   ],
   "categories": [
     {
-      "id": "1",
-      "name": "Danh mục 1"
+      "name": "Danh mục 1",
+      "id": "1"
     },
     {
       "id": "2",
       "name": "Danh mục 2"
+    },
+    {
+      "name": "danh muc 3",
+      "id": "sI0Da99"
     }
   ],
   "users": [

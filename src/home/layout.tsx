@@ -4,7 +4,7 @@ import { Outlet, Link } from "react-router-dom";
 
 const { Header, Content, Footer } = Layout;
 import "./Footer.scss";
-import { HomeOutlined, LoginOutlined, ProductOutlined, ShoppingCartOutlined, UserAddOutlined } from "@ant-design/icons";
+import { HomeOutlined, LoginOutlined, OpenAIOutlined, ProductOutlined, ShoppingCartOutlined, UserAddOutlined } from "@ant-design/icons";
 
 
 
@@ -58,6 +58,9 @@ const menuItems = [
       </Link>
     ),
   },
+  {
+    label: <OpenAIOutlined />,
+  },
 ];
 
 const LayoutHome: React.FC = () => {
@@ -79,9 +82,9 @@ const LayoutHome: React.FC = () => {
       </Header>
       <Content style={{ padding: "0 48px" }}>
         <Breadcrumb style={{ margin: "16px 0" }}>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
+          {/* <Breadcrumb.Item>Home</Breadcrumb.Item>
           <Breadcrumb.Item>List</Breadcrumb.Item>
-          <Breadcrumb.Item>App</Breadcrumb.Item>
+          <Breadcrumb.Item>App</Breadcrumb.Item> */}
         </Breadcrumb>
         <div
           style={{
@@ -94,6 +97,7 @@ const LayoutHome: React.FC = () => {
           <Outlet />
         </div>
       </Content>
+     
       <Footer className="custom-footer">
         <Row justify="center">
           <Col span={24} className="tagline">
